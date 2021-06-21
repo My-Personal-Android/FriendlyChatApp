@@ -59,6 +59,8 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
+    public static String UserID = "";
+
     public static final String ANONYMOUS = "anonymous";
     public static final int DEFAULT_MSG_LENGTH_LIMIT = 1000;
     public static final String FRIENDLY_MESSAGE_LENGTH_KEY = "friendly_msg_length";
@@ -158,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO: Send messages on click
 
-                FriendlyMessage friendlyMessage = new FriendlyMessage(mMessageEditText.getText().toString(), mUsername, null);
+                FriendlyMessage friendlyMessage = new FriendlyMessage(UserID,mMessageEditText.getText().toString().trim(), mUsername, null);
 
                 databaseReference.push().setValue(friendlyMessage);
                 // Clear input box
@@ -174,8 +176,10 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user =  firebaseAuth.getCurrentUser();
                 if(user!=null){
                     // User is Signed In
+                    UserID = user.getUid();
                     onSignedInInitialize(user.getDisplayName());
                     Log.v("MERA",user.getUid());
+
                 }else{
 
                     onSignedOutCleanup();
@@ -254,7 +258,7 @@ public class MainActivity extends AppCompatActivity {
                         // Successfully signed in
                         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                         Toast.makeText(getApplicationContext(),"Signed In, Welcome to FriendlyChat App",Toast.LENGTH_SHORT).show();
-
+                        UserID = user.getUid();
                         // ...
                     } else {
                         // Sign in failed. If response is null the user canceled the
@@ -301,7 +305,7 @@ public class MainActivity extends AppCompatActivity {
                                     String imageUrl = uri.toString();
                                     //createNewPost(imageUrl);
                                    // String uri = taskSnapshot.getMetadata().getReference().getDownloadUrl().toString();
-                                    FriendlyMessage friendlyMessage = new FriendlyMessage(null,mUsername,imageUrl);
+                                    FriendlyMessage friendlyMessage = new FriendlyMessage(UserID,null,mUsername,imageUrl);
                                     databaseReference.push().setValue(friendlyMessage);
                                 }
                             });
@@ -367,6 +371,7 @@ public class MainActivity extends AppCompatActivity {
         attachDatabaseReadListener();
     }
     private void onSignedOutCleanup() {
+        UserID = "";
         mUsername = ANONYMOUS;
         mMessageAdapter.clear();
         detachDatabaseReadListener();

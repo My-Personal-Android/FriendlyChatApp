@@ -30,25 +30,79 @@ public class MessageAdapter extends ArrayAdapter<FriendlyMessage> {
         }
 
         ImageView photoImageView = (ImageView) convertView.findViewById(R.id.photoImageView);
+        ImageView MyphotoImageView = (ImageView) convertView.findViewById(R.id.MyphotoImageView);
+
         TextView messageTextView = (TextView) convertView.findViewById(R.id.messageTextView);
         TextView authorTextView = (TextView) convertView.findViewById(R.id.nameTextView);
+
+        TextView MymessageTextView = (TextView) convertView.findViewById(R.id.MymessageTextView);
+        TextView MyauthorTextView = (TextView) convertView.findViewById(R.id.MynameTextView);
+
 
         FriendlyMessage message = getItem(position);
 
         boolean isPhoto = message.getPhotoUrl() != null;
         if (isPhoto) {
-            messageTextView.setVisibility(View.GONE);
-            photoImageView.setVisibility(View.VISIBLE);
-            Glide
-                    .with(photoImageView.getContext())
-                    .load(message.getPhotoUrl())
-                    .into(photoImageView);
+            if(MainActivity.UserID.equals(message.getUser_ID())){
+                MyphotoImageView.setVisibility(View.VISIBLE);
+                MyauthorTextView.setVisibility(View.VISIBLE);
+                Glide
+                        .with(MyphotoImageView.getContext())
+                        .load(message.getPhotoUrl())
+                        .into(MyphotoImageView);
+                MyauthorTextView.setText(message.getName());
+
+                MymessageTextView.setVisibility(View.GONE);
+                messageTextView.setVisibility(View.GONE);
+                authorTextView.setVisibility(View.GONE);
+                photoImageView.setVisibility(View.GONE);
+
+            }else{
+
+                photoImageView.setVisibility(View.VISIBLE);
+                authorTextView.setVisibility(View.VISIBLE);
+                Glide
+                        .with(photoImageView.getContext())
+                        .load(message.getPhotoUrl())
+                        .into(photoImageView);
+                authorTextView.setText(message.getName());
+
+                MymessageTextView.setVisibility(View.GONE);
+                MyauthorTextView.setVisibility(View.GONE);
+                messageTextView.setVisibility(View.GONE);
+                MyphotoImageView.setVisibility(View.GONE);
+            }
+
         } else {
-            messageTextView.setVisibility(View.VISIBLE);
-            photoImageView.setVisibility(View.GONE);
-            messageTextView.setText(message.getText());
+
+            if(MainActivity.UserID.equals(message.getUser_ID())){
+
+                MymessageTextView.setVisibility(View.VISIBLE);
+                MyauthorTextView.setVisibility(View.VISIBLE);
+
+                MymessageTextView.setText(message.getText());
+                MyauthorTextView.setText(message.getName());
+
+                photoImageView.setVisibility(View.GONE);
+                MyphotoImageView.setVisibility(View.GONE);
+
+                messageTextView.setVisibility(View.GONE);
+                authorTextView.setVisibility(View.GONE);
+            }else {
+
+                messageTextView.setVisibility(View.VISIBLE);
+                authorTextView.setVisibility(View.VISIBLE);
+
+                messageTextView.setText(message.getText());
+                authorTextView.setText(message.getName());
+
+                photoImageView.setVisibility(View.GONE);
+                MyphotoImageView.setVisibility(View.GONE);
+
+                MymessageTextView.setVisibility(View.GONE);
+                MyauthorTextView.setVisibility(View.GONE);
+            }
         }
-        authorTextView.setText(message.getName());
 
         return convertView;
     }

@@ -3,30 +3,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginStart="@dimen/activity_horizontal_margin"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:layout_margin="16dp"
+   >
 
-    <ImageView
-        android:id="@+id/photoImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="500dp"
-        android:adjustViewBounds="true" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/photoImageView"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true" />
+        <ImageView
+            android:id="@+id/MyphotoImageView"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true" />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/messageTextView"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        tools:text="Message" />
+        android:orientation="horizontal">
+        <RelativeLayout
+            android:id="@+id/Left"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="#f3f7eb">
+            <TextView
+                android:id="@+id/messageTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_width="wrap_content"
+                android:layout_margin="4dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                tools:text="Message" />
 
-    <TextView
-        android:id="@+id/nameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        tools:text="Name" />
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="4dp"
+                android:layout_below="@id/messageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                tools:text="Name" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/Right"
+            android:layout_toRightOf="@id/Left"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:background="#e0fab4">
+        <TextView
+            android:id="@+id/MymessageTextView"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_margin="4dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            tools:text="Message" />
 
+        <TextView
+            android:id="@+id/MynameTextView"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="4dp"
+            android:layout_below="@id/MymessageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            tools:text="Name" />
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_margin="4dp"
+        ></View>
 </LinearLayout>

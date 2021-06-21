@@ -11,6 +11,7 @@
     tools:context="com.friendlychat.MainActivity">
 
     <ListView
+        android:background="@drawable/chatbackgroung"
         android:id="@+id/messageListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
